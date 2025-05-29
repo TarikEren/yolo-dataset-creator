@@ -1,2 +1,10 @@
+# Directories
+/utils/__pycache__
 /dataset
+/images
+/labels
+
+# Extensions
 *.yaml
+*.log
+*.txt

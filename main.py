@@ -55,6 +55,23 @@ def main(train_ratio: float,
     labels_path = Path(labels)
     dataset_path = Path(dataset)
 
+    # Checking if ratios are valid (Not none and sum should be 1)
+    ratios = {
+        "Train": train_ratio,
+        "Test": test_ratio,
+        "Val": val_ratio
+    }    
+    ratio_sum = 0
+    for key, ratio in ratios.items():
+        if ratio is None:
+            logger.error(f"{key} ratio is None")
+            raise ValueError(f"{key} ratio is None")
+        ratio_sum += ratio
+
+    if ratio_sum != 1:
+        logger.error(f"Sum of train, test and val ratios ({val_ratio}) is not equal to 1")
+        raise ValueError(f"Sum of train, test and val ratios ({val_ratio}) is not equal to 1")
+
     classes = read_classes(class_file=class_file_path)
 
     splits = split_images(train_ratio=train_ratio,
